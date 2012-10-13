@@ -128,6 +128,7 @@ VIRTUALENV_DIRS=$MODERN_VIRTUALENV_LOC
 
 # Support "old-style" virtualenvs.
 if [ -d $CACHE_DIR/$LEGACY_VIRTUALENV_TRIGGER ]; then
+  echo " !     using legacy virtualenv setup."
   LEGACY_VIRTUALENV=true
   VIRTUALENV_LOC=$LEGACY_VIRTUALENV_LOC
   VIRTUALENV_DIRS=$LEGACY_VIRTUALENV_DIRS
@@ -183,6 +184,7 @@ OUT=$(virtualenv --python $PYTHON_EXE --distribute --never-download --prompt='(v
     else echo " !     Virtualenv corrupt, rebuilding."
   fi
   for dir in $VIRTUALENV_DIRS; do
+    echo " !       purging '$dir'"
     rm -fr $dir &> /dev/null || true
   done
   OUT=$(virtualenv --python $PYTHON_EXE --distribute --never-download  --prompt='(venv) ' $VIRTUALENV_LOC )
